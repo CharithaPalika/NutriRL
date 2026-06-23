@@ -1,6 +1,8 @@
 # NutriRL: A Benchmark for Nutritional Regulation under Delayed State Transitions
 
-NutriRL is a nutrition-aware reinforcement learning project designed to study how different RL agents make food-choice decisions under delayed nutrient absorption and nutrient-targeting objectives. This repository supports the Reinforcement Learning Conference (RLC) 2026 paper workflow and reproducible experiments across multiple algorithms.
+
+> **NutriRL** is a nutrition-aware reinforcement learning project designed to study how different RL agents make food-choice decisions under delayed nutrient absorption and nutrient-targeting objectives. This repository supports the Reinforcement Learning Conference (RLC) 2026 paper workflow and reproducible experiments across multiple algorithms.
+
 ---
 
 ## Citation
@@ -21,12 +23,11 @@ If you use NutriRL in your research, please cite:
 
 This repository contains:
 
-- a custom Gym-style environment for nutrient-based decision making,
-- multiple RL agents for comparison,
-- food datasets with varying delay and uncertainty settings,
-- experiment notebooks for paper-style evaluation.
+- a custom Gym-style environment for nutrient-based decision making under delayed nutrient absorption,
+- implementations of multiple RL algorithms and supporting code to compare behavior and reproduce results,
+- food datasets and experiment notebooks for training, evaluation, and analysis.
 
-The core objective is to model an agent that observes its current physiological state and the current food item, then decides whether to consume it in order to move toward a target nutrient profile.
+At a high level, NutriRL is a simple but powerful idea: train an agent to make food-choice decisions in a simulated body where the consequences of eating are not immediate. Instead of seeing a reward right away, the agent must reason about how today’s meal will affect future nutrient levels, health balance, and long-term goals.
 
 ---
 
@@ -36,9 +37,11 @@ The core objective is to model an agent that observes its current physiological 
 The main environment models:
 - nutrient intake for Carbs, Fat, and Protein,
 - delayed digestion effects,
-- stochastic nutrient absorption,
 - target-based reward signals,
-- food embeddings used by learning agents.
+
+![Environment framework](figures/env_framework.png)
+
+The environment is designed to feel intuitive: at each step, the agent observes its current physiological state and the available food item, then chooses whether to skip it or consume it. If it chooses to eat, the body absorbs nutrients over time rather than instantly, which makes the task more realistic and challenging. This introduces delayed consequences, uncertainty, and the need for planning rather than short-sighted reward chasing.
 
 ### Agents
 The repository includes several RL agents for comparison, including:
@@ -80,6 +83,19 @@ The main experiment pipelines are provided in the root notebooks:
 - run_ac_gae_all.ipynb
 
 These notebooks are the recommended entry points for reproducing the reported experimental runs.
+
+---
+
+## Why this environment matters
+
+NutriRL is more than just a toy RL task. It is a structured benchmark for studying how reinforcement learning agents behave when the environment has:
+
+- delayed effects,
+- partial observability of internal states,
+- long-horizon decision making,
+- and reward signals that depend on future physiological outcomes.
+
+This makes the repository valuable for researchers working at the intersection of reinforcement learning, computational biology, and health-inspired decision systems. It also provides a reproducible testbed for comparing different algorithms under the same nutritional setting.
 
 ---
 
